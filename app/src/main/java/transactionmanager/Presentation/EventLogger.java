@@ -2,7 +2,7 @@ package transactionmanager.Presentation;
 
 import java.util.ArrayList;
 
-import transactionmanager.App.Observer;
+import transactionmanager.Business.Observer;
 
 public class EventLogger implements Observer {
     static ArrayList<String> events = new ArrayList<>();

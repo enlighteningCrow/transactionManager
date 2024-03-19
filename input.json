@@ -49,3 +49,114 @@
         "id": 123
     }
 }
+
+{
+    "command": [
+        "accounts",
+        "ListAccounts"
+    ],
+    "arguments": {}
+}
+
+{
+    "command": [
+        "products",
+        "AddItem"
+    ],
+    "arguments": {
+        "name": "Headphone",
+        "price": 12.21
+    }
+}
+
+{
+    "command": [
+        "products",
+        "ListItems"
+    ],
+    "arguments": {}
+}
+{
+    "command": [
+        "promotions",
+        "AddPromotion"
+    ],
+    "arguments": {
+        "name": "Earbuds",
+        "discount": 0.2
+    }
+}
+{
+    "command": [
+        "promotions",
+        "AddPromotion"
+    ],
+    "arguments": {
+        "name": "Headphone",
+        "discount": 0.15
+    }
+}
+{
+    "command": [
+        "promotions",
+        "AddPromotion"
+    ],
+    "arguments": {
+        "name": "Headpiece",
+        "discount": 0.12
+    }
+}
+{
+    "command": [
+        "promotions",
+        "ListPromotions"
+    ],
+    "arguments": {}
+}
+{
+    "command": [
+        "promotions",
+        ""
+    ],
+    "arguments": {}
+}
+
+{
+    "command": [
+        "accounts",
+        "CreateAccount"
+    ],
+    "arguments": {
+        "id": 8888,
+        "balance": 8888.8888
+    }
+}
+{
+    "command": [
+        "accounts",
+        "Purchase"
+    ],
+    "arguments": {
+        "accountId": 8888,
+        "productName": "Headphone"
+    }
+}
+
+{
+    "command": [
+        "accounts",
+        "ViewTransactionHistory"
+    ],
+    "arguments": {
+        "id": 8888
+    }
+}
+{
+    "command": [
+        "accounts",
+        "ViewAccountBalance"
+    ],
+    "arguments": {
+        "id": 8888
+    }
+}

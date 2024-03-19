@@ -8,10 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import transactionmanager.App.Accounts.Account;
-import transactionmanager.App.Accounts.AccountCommandDecorator;
-import transactionmanager.App.Accounts.AccountManager;
-import transactionmanager.App.Transaction.InsufficientBalanceError;
+import transactionmanager.Business.Accounts.Account;
+import transactionmanager.Business.Accounts.AccountCommandDecorator;
+import transactionmanager.Business.Accounts.AccountManager;
+import transactionmanager.Business.Transaction.InsufficientBalanceError;
 import transactionmanager.Presentation.CommandDto;
 import transactionmanager.Presentation.CommandHandler;
 

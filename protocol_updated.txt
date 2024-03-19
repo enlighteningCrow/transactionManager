@@ -5,8 +5,6 @@
         id: int
         balance: double
     ListAccounts
-        accountId: int
-        productName: String
     RemoveAccount
         id: int
     ViewTransactionHistory

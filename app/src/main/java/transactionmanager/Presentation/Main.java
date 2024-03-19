@@ -28,15 +28,21 @@ public class Main {
         // JsonNode node = new JSONInt;
         // return;
         // }
+        EventLogger logger = new EventLogger();
         CommandHandler accountsHandler = null;
-        try {
-            accountsHandler = new AccountsCommandHandler();
-        } catch (ClassNotFoundException | SQLException | IOException e) {
-            System.err.println("Error: Cannot register the accounts handler.");
-        }
+        // try {
+        accountsHandler = new AccountsCommandHandler();
+        // } catch (ClassNotFoundException | SQLException | IOException e) {
+        // System.err.println("Error: Cannot register the accounts handler.");
+        // }
         CommandHandler productsHandler = new ProductsCommandHandler();
 
         accountsHandler.setNextHandler(productsHandler);
+        CommandHandler promotionsHandler = new PromotionsCommandHandler();
+        productsHandler.setNextHandler(promotionsHandler);
+
+        CommandHandler exitHandler = new ExitCommandHandler();
+        promotionsHandler.setNextHandler(exitHandler);
 
         // JsonFactory
         JsonFactory fJsonFactory = new JsonFactory();
@@ -56,7 +62,7 @@ public class Main {
                 // response = accountsHandler.handleCommand(input);
                 // mapper.createParser(System.in);
                 CommandDto commandDto = mapper.readValue(System.in, CommandDto.class);
-                System.err.println("Processing: " + commandDto);
+                // System.err.println("Processing: " + commandDto);
                 // response = accountsHandler.handleCommand(commandDto).toString();
                 response = accountsHandler.handleCommand(commandDto);
             } catch (NullPointerException e) {
@@ -69,7 +75,7 @@ public class Main {
                 System.err.println("IOException: " + e.getMessage());
                 System.exit(0);
             }
-            System.out.println(OutputBuilder.build(response));
+            System.out.println(OutputMaker.build(response));
         }
     }
 }

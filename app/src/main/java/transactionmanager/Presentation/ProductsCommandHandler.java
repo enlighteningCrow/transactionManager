@@ -20,7 +20,7 @@ public class ProductsCommandHandler extends CommandHandler {
         for (int i = 1; i < handlers.size(); ++i) {
             handlers.get(i - 1).setNextHandler(handlers.get(i));
         }
-
+        setDelegateHandler(handlers.get(0));
     }
 
     @Override

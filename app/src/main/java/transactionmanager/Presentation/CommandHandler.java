@@ -7,13 +7,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import transactionmanager.App.Transaction.InsufficientBalanceError;
+import transactionmanager.Business.Products.ProductError;
+import transactionmanager.Business.Transaction.InsufficientBalanceError;
 
 public abstract class CommandHandler {
     protected CommandHandler nextHandler = null;
     protected CommandHandler delegateHandler = null;
     protected static ObjectMapper objectMapper = new ObjectMapper();
-    protected static ResponseFactory responseFactory = new ResponseFactory();
+    protected static ResponseMaker responseFactory = new ResponseMaker();
     protected String commandName;
 
     public void setNextHandler(CommandHandler handler) {
@@ -42,7 +43,8 @@ public abstract class CommandHandler {
                     } else {
                         return cHandleCommand(commandDto);
                     }
-                } catch (ClassNotFoundException | SQLException | IOException | InsufficientBalanceError e) {
+                } catch (ClassNotFoundException | SQLException | IOException | InsufficientBalanceError
+                        | ProductError e) {
                     System.err.println("Error: Cannot handle the command.");
                     System.err.println(e);
                 }
