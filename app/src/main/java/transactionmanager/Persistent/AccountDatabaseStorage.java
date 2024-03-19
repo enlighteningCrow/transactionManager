@@ -69,9 +69,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import transactionmanager.App.Account;
-import transactionmanager.App.AccountCommandDecorator;
-import transactionmanager.App.Transaction;
+import transactionmanager.App.Accounts.Account;
+import transactionmanager.App.Accounts.AccountCommandDecorator;
+import transactionmanager.App.Transaction.Transaction;
 
 public class AccountDatabaseStorage {
     private final String url;

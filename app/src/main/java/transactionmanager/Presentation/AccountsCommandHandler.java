@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import transactionmanager.App.AccountCommandDecorator;
-import transactionmanager.App.AccountManager;
+import transactionmanager.App.Accounts.AccountCommandDecorator;
+import transactionmanager.App.Accounts.AccountManager;
 import transactionmanager.Presentation.AccountCommandHandlers.*;
 
 import java.util.List;
@@ -18,28 +18,18 @@ public class AccountsCommandHandler extends CommandHandler {
 
     public AccountsCommandHandler() throws ClassNotFoundException, SQLException, IOException {
         super("accounts");
+        List<CommandHandler> handlers = Arrays.asList(new BalanceCommand(), new CreateCommand(), new ListCommand(),
+                new RemoveCommand(), new ShowCommand(), new TopUpCommand(), new TransferCommand());
+        for (int i = 1; i < handlers.size(); ++i) {
+            handlers.get(i - 1).setNextHandler(handlers.get(i));
+        }
+        setDelegateHandler(handlers.get(0));
         // this.accountManager = AccountManager.getInstance();
     }
 
     @Override
     public ObjectNode cHandleCommand(CommandDto commandDto) throws JsonProcessingException {
-        // ObjectMapper mapper = new ObjectMapper();
-        // CommandDto commandDto = mapper.readValue(commandJson, CommandDto.class);
-
-        // String action = commandDto.command().toLowerCase();
-        // String action = commandDto.command().get(0);
-        // String action = commandDto.command().remove(0);
-        commandDto.command().remove(0);
-        List<CommandHandler> handlers = Arrays.asList(new CreateCommand(), new ShowCommand());
-        for (int i = 1; i < handlers.size(); ++i) {
-            handlers.get(i - 1).setNextHandler(handlers.get(i));
-        }
-
-        return handlers.get(0).handleCommand(commandDto);
-    }
-
-    @Override
-    public boolean canHandle(CommandDto commandDto) {
-        return commandDto.command().get(0).equals("accounts");
+        throw new RuntimeException("Reached unreachable accounts handler");
+        // return handlers.get(0).handleCommand(commandDto);
     }
 }

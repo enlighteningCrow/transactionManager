@@ -42,20 +42,23 @@ public class Main {
         JsonFactory fJsonFactory = new JsonFactory();
         fJsonFactory.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, false);
         // fJsonFactory.disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
+        // OutputBuilder outputBuilder = new OutputBuilder();
 
         while (true) {
             // ObjectMapper mapper = new ObjectMapper(fJsonFactory);
 
             // ObjectMapper mapper = new ObjectMapper();
             ObjectMapper mapper = new ObjectMapper(fJsonFactory);
-            String response = "";
+            // String response = "";
+            ObjectNode response = null;
             // InputStream stream = System.in;
             try {
                 // response = accountsHandler.handleCommand(input);
                 // mapper.createParser(System.in);
                 CommandDto commandDto = mapper.readValue(System.in, CommandDto.class);
                 System.err.println("Processing: " + commandDto);
-                response = accountsHandler.handleCommand(commandDto).toString();
+                // response = accountsHandler.handleCommand(commandDto).toString();
+                response = accountsHandler.handleCommand(commandDto);
             } catch (NullPointerException e) {
                 System.out.println("{\"error\": \"Incomplete arguments passed\"}");
             } catch (JsonProcessingException e) {
@@ -66,7 +69,7 @@ public class Main {
                 System.err.println("IOException: " + e.getMessage());
                 System.exit(0);
             }
-            System.out.println(response);
+            System.out.println(OutputBuilder.build(response));
         }
     }
 }

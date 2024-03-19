@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import transactionmanager.App.AccountCommandDecorator;
-import transactionmanager.App.AccountManager;
+import transactionmanager.App.Accounts.AccountCommandDecorator;
+import transactionmanager.App.Accounts.AccountManager;
 import transactionmanager.Presentation.CommandDto;
 import transactionmanager.Presentation.CommandHandler;
 

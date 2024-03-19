@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import transactionmanager.App.InsufficientBalanceError;
+import transactionmanager.App.Transaction.InsufficientBalanceError;
 
 public abstract class CommandHandler {
     protected CommandHandler nextHandler = null;
@@ -37,7 +37,11 @@ public abstract class CommandHandler {
             if (canHandle(commandDto)) {
                 try {
                     commandDto.command().remove(0);
-                    return cHandleCommand(commandDto);
+                    if (delegateHandler != null) {
+                        return delegateHandler.handleCommand(commandDto);
+                    } else {
+                        return cHandleCommand(commandDto);
+                    }
                 } catch (ClassNotFoundException | SQLException | IOException | InsufficientBalanceError e) {
                     System.err.println("Error: Cannot handle the command.");
                     System.err.println(e);

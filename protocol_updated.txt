@@ -1,0 +1,41 @@
+"account"
+    ViewAccountBalance
+        id: int
+    CreateAccount
+        id: int
+        balance: double
+    ListAccounts
+        accountId: int
+        productName: String
+    RemoveAccount
+        id: int
+    ViewTransactionHistory
+        id: int
+    TopUp
+        id: int
+        amount: double
+    Transfer
+        fromID: int
+        toID: int
+        amount: double
+"products"
+    AddItem
+        name: String
+        price: double
+    ListItems
+    RemoveItem
+        name: String
+    UpdateItem
+        name: String
+        price: double
+"promotions"
+    AddPromotion
+        name: String
+        discount: double
+    ListPromotions
+    RemovePromotion
+        name: String
+    UpdateItem
+        name: String
+        discount: double
+    

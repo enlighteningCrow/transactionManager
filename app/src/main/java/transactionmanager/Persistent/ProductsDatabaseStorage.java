@@ -1,7 +1,8 @@
 package transactionmanager.Persistent;
 
-import transactionmanager.App.ProductsHistory;
-import transactionmanager.App.ProductMemento;
+import transactionmanager.App.Products.ProductMemento;
+import transactionmanager.App.Products.ProductsHistory;
+
 import java.util.List;
 import java.util.ArrayList;
 
