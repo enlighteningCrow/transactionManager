@@ -1,0 +1,387 @@
+// package transactionmanager.Presentation;
+
+// import org.json.JSONArray;
+// import org.json.JSONObject;
+// import java.util.Scanner;
+// import transactionmanager.App.*;
+
+// public class Main {
+//     public static void main(String[] args) {
+//         Scanner scanner = new Scanner(System.in);
+//         boolean running = true;
+
+//         while (running) {
+//             // Send READY message to the client
+//             JSONObject readyResponse = new JSONObject();
+//             readyResponse.put("status", "READY");
+//             System.out.println(readyResponse.toString());
+
+//             // Receive command from the client
+//             System.out.print("Enter command: ");
+//             String input = scanner.nextLine().trim();
+
+//             // Parse command JSON
+//             JSONObject commandJson = new JSONObject(input);
+//             String command = commandJson.getString("command").toLowerCase();
+//             JSONObject arguments = commandJson.getJSONObject("arguments");
+
+//             // Handle command
+//             JSONObject responseJson = handleCommand(command, arguments);
+
+//             // Send response to the client
+//             System.out.println(responseJson.toString());
+
+//             // Send events to observers
+//             JSONObject eventsJson = generateEvents();
+//             System.out.println(eventsJson.toString());
+
+//             // Check if client wants to continue
+//             System.out.print("Continue? (yes/no): ");
+//             String continueInput = scanner.nextLine().trim().toLowerCase();
+//             if (!continueInput.equals("yes")) {
+//                 running = false;
+//             }
+//         }
+
+//         scanner.close();
+//     }
+
+//     private static JSONObject handleCommand(String command, JSONObject arguments) {
+//         JSONObject responseJson = new JSONObject();
+
+//         switch (command) {
+//             case "viewtransactionhistory":
+//                 // Handle ViewTransactionHistory command
+//                 int accountId = arguments.getInt("id");
+//                 JSONArray transactionHistory = viewTransactionHistory(accountId);
+//                 responseJson.put("transactions", transactionHistory);
+//                 break;
+//             // Add cases for other commands
+//             default:
+//                 responseJson.put("error", "Invalid command");
+//         }
+
+//         return responseJson;
+//     }
+
+//     private static JSONArray viewTransactionHistory(int accountId) {
+//         // Placeholder method to simulate fetching transaction history from database
+//         // Replace with actual implementation
+//         JSONArray transactionHistory = new JSONArray();
+//         transactionHistory.put(new JSONObject().put("transactionId", 123).put("amount", 50.0));
+//         transactionHistory.put(new JSONObject().put("transactionId", 124).put("amount", 75.0));
+//         return transactionHistory;
+//     }
+
+//     private static JSONObject generateEvents() {
+//         // Placeholder method to generate events observed by observers
+//         // Replace with actual implementation
+//         JSONArray eventsArray = new JSONArray();
+//         eventsArray.put("Event 1");
+//         eventsArray.put("Event 2");
+
+//         JSONObject eventsJson = new JSONObject();
+//         eventsJson.put("events", eventsArray);
+//         return eventsJson;
+//     }
+// }
+
+// package transactionmanager.Presentation;
+
+// import java.sql.SQLException;
+// import java.util.Scanner;
+
+// import transactionmanager.App.Account;
+// import transactionmanager.App.AccountCommandDecorator;
+// import transactionmanager.App.AccountManager;
+// import transactionmanager.App.InsufficientBalanceError;
+// import transactionmanager.App.ProductsD;
+// import transactionmanager.App.ProductsHistory;
+// import transactionmanager.App.TransactionManager;
+
+// import com.fasterxml.jackson.core.JsonParseException;
+// import com.fasterxml.jackson.core.JsonProcessingException;
+// import com.fasterxml.jackson.databind.JsonMappingException;
+// import com.fasterxml.jackson.databind.ObjectMapper;
+// import com.fasterxml.jackson.databind.SerializationFeature;
+
+// public class Main {
+//     public static void main(String[] args) {
+//         Scanner scanner = new Scanner(System.in);
+//         boolean running = true;
+
+//         while (running) {
+//             System.out.print("Enter command: ");
+//             String input = scanner.nextLine().trim();
+
+//             String[] parts = input.split("\\s+");
+//             String command = parts[0].toLowerCase();
+
+//             switch (command) {
+//                 case "accounts":
+//                     handleAccountsCommand(parts);
+//                     break;
+//                 case "products":
+//                     handleProductsCommand(parts);
+//                     break;
+//                 case "exit":
+//                     running = false;
+//                     break;
+//                 default:
+//                     System.out.println("Invalid command. Please try again.");
+//             }
+//         }
+
+//         scanner.close();
+//     }
+
+//     private static void handleAccountsCommand(String[] parts) {
+//         if (parts.length < 2) {
+//             System.out.println("Invalid accounts command. Usage: accounts <action>");
+//             return;
+//         }
+//         AccountManager accountManager = AccountManager.getInstance();
+
+//         String action = parts[1].toLowerCase();
+//         switch (action) {
+//             case "show":
+//                 if (parts.length < 3) {
+//                     System.out.println("Invalid accounts show command. Usage: accounts show <id:int>");
+//                     return;
+//                 }
+//                 int accountId = Integer.parseInt(parts[2]);
+//                 AccountCommandDecorator account = accountManager.getAccount(accountId);
+//                 if (account == null) {
+//                     System.err.println("Error: account with given id " + accountId + " does not exist");
+//                 } else {
+//                     System.out.println("Balance: " + account.getBalance());
+//                     // new ObjectMapper()
+//                     var mapper = new ObjectMapper()
+//                             .enable(SerializationFeature.INDENT_OUTPUT);
+
+//                     String json;
+//                     try {
+//                         json = mapper.writeValueAsString(account.getCommandHistory());
+//                     } catch (JsonProcessingException e) {
+//                         // TODO Auto-generated catch block
+//                         e.printStackTrace();
+//                         json = "None";
+//                     }
+//                     System.out.println(json);
+
+//                     // System.out.println("History:\n" + (account.getCommandHistory()));
+//                 }
+//                 break;
+//             case "add":
+//                 if (parts.length < 4) {
+//                     System.out.println("Invalid accounts add command. Usage: accounts add <id:int> <balance:double>");
+//                     return;
+//                 }
+//                 int accountIdToAdd = Integer.parseInt(parts[2]);
+//                 double balanceToAdd = Double.parseDouble(parts[3]);
+//                 accountManager.addAccount(new AccountCommandDecorator(new Account(accountIdToAdd, balanceToAdd)));
+//                 break;
+//             case "remove":
+//                 if (parts.length < 3) {
+//                     System.out.println("Invalid accounts remove command. Usage: accounts remove <id:int>");
+//                     return;
+//                 }
+//                 int accountIdToRemove = Integer.parseInt(parts[2]);
+//                 accountManager.removeAccountId(accountIdToRemove);
+//                 break;
+//             case "list":
+//                 if (parts.length < 2) {
+//                     System.out.println("Invalid accounts list command. Usage: accounts show");
+//                     return;
+//                 }
+//                 System.out.println(accountManager);
+//                 break;
+//             case "topup":
+//                 if (parts.length < 4) {
+//                     System.out.println("Invalid accounts topup command. Usage: accounts topup <id> <amount>");
+//                     return;
+//                 }
+//                 int accountIdToTopup = Integer.parseInt(parts[2]);
+//                 double balanceToTopup = Double.parseDouble(parts[3]);
+//                 new TransactionManager().topUp(accountManager.getAccount(accountIdToTopup), balanceToTopup);
+//                 break;
+//             case "purchase":
+//                 if (parts.length < 4) {
+//                     System.out.println("Invalid accounts purchase command. Usage: accounts purchase <id> <item>");
+//                     return;
+//                 }
+//                 int accountIdToPurchase = Integer.parseInt(parts[2]);
+//                 String itemToPurchase = parts[3];
+//                 try {
+//                     new TransactionManager().pay(accountManager.getAccount(accountIdToPurchase), itemToPurchase);
+//                 } catch (InsufficientBalanceError e) {
+//                     System.err.println("Error: insufficient funds to buy the " + itemToPurchase);
+//                 }
+//                 break;
+//             case "observe":
+//                 if (parts.length < 3) {
+//                     System.out.println("Invalid accounts observe command. Usage: accounts observe <id>");
+//                     return;
+//                 }
+//                 observeAccount(parts);
+//                 break;
+//             case "unobserve":
+//                 if (parts.length < 3) {
+//                     System.out.println("Invalid accounts unobserve command. Usage: accounts unobserve <id>");
+//                     return;
+//                 }
+//                 unobserveAccount(parts);
+//                 break;
+//             default:
+//                 System.out.println("Invalid accounts action. Please try again.");
+//         }
+//     }
+
+//     private static void handleProductsCommand(String[] parts) {
+//         if (parts.length < 2) {
+//             System.out.println("Invalid products command. Usage: products <action>");
+//             return;
+//         }
+
+//         ProductsD productsD = ProductsD.getInstance();
+//         ProductsHistory productsHistory = null;
+//         try {
+//             productsHistory = ProductsHistory.getInstance();
+//         } catch (SQLException e) {
+//             System.err.println("Error: cannot access product history database.");
+//             System.exit(-1);
+//         }
+
+//         String action = parts[1].toLowerCase();
+//         switch (action) {
+//             case "hist":
+//                 System.out.println(
+//                         "Number historical product lists stored: " + productsHistory.getProductMementoList().size());
+//                 break;
+//             case "show":
+//                 if (parts.length < 2) {
+//                     System.out.println("Invalid products load command. Usage: products show");
+//                     return;
+//                 }
+//                 System.out.println("History:\n" + productsD);
+//                 break;
+//             case "load":
+//                 if (parts.length < 3) {
+//                     System.out.println("Invalid products load command. Usage: products load <num:int>");
+//                     return;
+//                 }
+//                 int numToShow = Integer.parseInt(parts[2]);
+//                 if (numToShow >= productsD.getAllProducts().size()) {
+//                     System.err.println("Not enough history to load!");
+//                 } else {
+//                     productsD.restoreFromMemento(productsHistory.getProductMementoList()
+//                             .get(productsHistory.getProductMementoList().size() - 1 - numToShow));
+//                     System.out.println("History:\n" + productsD);
+//                 }
+//                 break;
+//             case "add":
+//                 if (parts.length < 5) {
+//                     System.out.println(
+//                             "Invalid products add command. Usage: products add <name:String> <price:double> <promotion:bool>");
+//                     return;
+//                 }
+//                 String name = parts[2];
+//                 double price = Double.parseDouble(parts[3]);
+//                 boolean promotion = Boolean.parseBoolean(parts[4]);
+//                 try {
+//                     productsD.addProduct(name, price, promotion);
+//                 } catch (Exception e) {
+//                     System.err.println("Error addding the product!");
+//                 }
+//                 break;
+//             case "remove":
+//                 if (parts.length < 3) {
+//                     System.out.println("Invalid products remove command. Usage: products remove <name:String>");
+//                     return;
+//                 }
+//                 String productNameToRemove = parts[2];
+//                 try {
+//                     productsD.removeProduct(productNameToRemove);
+//                 } catch (SQLException e) {
+
+//                 }
+//                 break;
+//             default:
+//                 System.out.println("Invalid products action. Please try again.");
+//         }
+//     }
+
+//     private static void observeAccount(String[] parts) {
+//         if (parts.length < 3) {
+//             System.out.println("Invalid observe command. Usage: account observe <id:int>");
+//             return;
+//         }
+//         int accountId = Integer.parseInt(parts[2]);
+//         AccountCommandDecorator account = AccountManager.getInstance().getAccount(accountId);
+//         if (account == null) {
+//             System.err.println("Error: account with given id " + accountId + " does not exist");
+//         } else {
+//             account.addObserver(new PopupObserver());
+//             System.out.println("Account with ID " + accountId + " is now being observed.");
+//         }
+//     }
+
+//     private static void unobserveAccount(String[] parts) {
+//         if (parts.length < 3) {
+//             System.out.println("Invalid unobserve command. Usage: account unobserve <id:int>");
+//             return;
+//         }
+//         int accountId = Integer.parseInt(parts[2]);
+//         AccountCommandDecorator account = AccountManager.getInstance().getAccount(accountId);
+//         if (account == null) {
+//             System.err.println("Error: account with given id " + accountId + " does not exist");
+//         } else {
+//             account.removeObserver(new PopupObserver());
+//             System.out.println("Account with ID " + accountId + " is no longer being observed.");
+//         }
+//     }
+// }
+package transactionmanager.Presentation;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        CommandHandler accountsHandler = new AccountsCommandHandler();
+        CommandHandler productsHandler = new ProductsCommandHandler();
+
+        accountsHandler.setNextHandler(productsHandler);
+
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while (running) {
+            System.out.print("Enter command: ");
+            String input = scanner.nextLine().trim();
+
+            String response = "";
+            try {
+                response = accountsHandler.handleCommand(input);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            System.out.println(response);
+        }
+
+        scanner.close();
+    }
+}
+
+// class CommandDto {
+// private String command;
+// private JsonNode arguments;
+
+// // Getters and setters
+// }
+
+record CommandDto(ArrayList<String> command, JsonNode arguments) {
+
+}

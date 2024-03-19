@@ -1,0 +1,9 @@
+Requirements and stuff, Project overview.
+
+What are your layers? Explain them in detail. Each layer has its own class diagram
+What design patterns did you use in each layer in your code?
+The 3rd layer is called PERSISTENT layer, not storage.
+
+Explicitly show the specifications of your communication system, and state clearly at the beginning that your system is merely for the backend
+
+

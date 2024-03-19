@@ -1,0 +1,21 @@
+2024-03-18 21:05:55.378867+07:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found (this database is empty); SQL statement:
+SELECT id, balance FROM accounts [42104-224]
+2024-03-18 21:06:09.063802+07:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found (this database is empty); SQL statement:
+INSERT INTO accounts (id, balance) VALUES (?, ?) [42104-224]
+2024-03-18 22:21:20.879487+07:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found (this database is empty); SQL statement:
+SELECT id, balance FROM accounts [42104-224]
+2024-03-18 22:21:34.457872+07:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found (this database is empty); SQL statement:
+SELECT id, balance FROM accounts [42104-224]
+2024-03-18 22:21:34.705082+07:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found (this database is empty); SQL statement:
+INSERT INTO accounts (id, balance) VALUES (?, ?) [42104-224]
+2024-03-18 23:27:22.024541+07:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found (this database is empty); SQL statement:
+SELECT id, balance, command_history FROM accounts [42104-224]
+2024-03-18 23:27:22.368146+07:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found (this database is empty); SQL statement:
+INSERT INTO accounts (id, balance, command_history) VALUES (?, ?, ?) [42104-224]

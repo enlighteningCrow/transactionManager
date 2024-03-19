@@ -1,0 +1,41 @@
+{
+    "command": [
+        "accounts",
+        "CreateAccount"
+    ],
+    "arguments": {
+        "id": 1209,
+        "balance": 49.32
+    }
+}
+
+{
+    "command": [
+        "accounts",
+        "ViewTransactionHistory"
+    ],
+    "arguments": {
+        "id": 123
+    }
+}
+
+
+{
+    "command": [
+        "accounts",
+        "CreateAccount"
+    ],
+    "arguments": {
+        "id": 123,
+        "balance": 49.32
+    }
+}
+{
+    "command": [
+        "accounts",
+        "ViewTransactionHistory"
+    ],
+    "arguments": {
+        "id": 123
+    }
+}

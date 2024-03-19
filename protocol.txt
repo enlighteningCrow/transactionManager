@@ -1,0 +1,166 @@
+Inventory Management:
+
+Add Item:
+AddItem {name: String, quantity: int, price: int}
+Input Parameters:
+name (String): The name of the item.
+quantity (int): The initial quantity of the item in stock.
+price (int): The price of the item.
+Output: None
+
+Update Item:
+UpdateItem {id: int, name: String, quantity: int, price: int}
+Input Parameters:
+id (int): The ID of the item to update.
+name (String): The updated name of the item.
+quantity (int): The updated quantity of the item in stock.
+price (int): The updated price of the item.
+Output: None
+
+Remove Item:
+RemoveItem {id: int}
+Input Parameters:
+id (int): The ID of the item to remove.
+Output: None
+
+List Items:
+ListItems
+Input Parameters: None
+Output: List of items
+
+Search Item:
+SearchItem {criteria: String}
+Input Parameters:
+criteria (String): The search criteria (e.g., name, ID).
+Output: List of items matching the search criteria
+
+Adjust Stock:
+AdjustStock {id: int, quantity: int}
+Input Parameters:
+id (int): The ID of the item to adjust stock for.
+quantity (int): The quantity to adjust (positive for increase, negative for decrease).
+Output: None
+
+Transaction Management:
+
+Add Transaction:
+AddTransaction {type: String, amount: int, accountId: int}
+Input Parameters:
+type (String): The type of transaction (e.g., payment, purchase).
+amount (int): The amount of the transaction.
+accountId (int): The ID of the account associated with the transaction.
+Output: None
+
+Update Transaction:
+UpdateTransaction {id: int, newType: String, newAmount: int}
+Input Parameters:
+id (int): The ID of the transaction to update.
+newType (String): The updated type of transaction.
+newAmount (int): The updated amount of the transaction.
+Output: None
+
+Remove Transaction:
+RemoveTransaction {id: int}
+Input Parameters:
+id (int): The ID of the transaction to remove.
+Output: None
+
+List Transactions:
+ListTransactions
+Input Parameters: None
+Output: List of transactions
+
+Search Transaction:
+SearchTransaction {criteria: String}
+Input Parameters:
+criteria (String): The search criteria (e.g., type, account ID).
+Output: List of transactions matching the search criteria
+
+Refund Transaction:
+RefundTransaction {id: int}
+Input Parameters:
+id (int): The ID of the transaction to refund.
+Output: None
+
+Account Management:
+
+Create Account:
+CreateAccount {name: String, email: String}
+Input Parameters:
+name (String): The name of the user.
+email (String): The email address of the user.
+Output: None
+
+Update Account:
+UpdateAccount {id: int, newName: String, newEmail: String}
+Input Parameters:
+id (int): The ID of the account to update.
+newName (String): The updated name of the user.
+newEmail (String): The updated email address of the user.
+Output: None
+
+Remove Account:
+RemoveAccount {id: int}
+Input Parameters:
+id (int): The ID of the account to remove.
+Output: None
+
+List Accounts:
+ListAccounts
+Input Parameters: None
+Output: List of accounts
+
+Search Account:
+SearchAccount {criteria: String}
+Input Parameters:
+criteria (String): The search criteria (e.g., name, email).
+Output: List of accounts matching the search criteria
+
+Top Up Account:
+TopUpAccount {id: int, amount: int}
+Input Parameters:
+id (int): The ID of the account to top up.
+amount (int): The amount to top up the account balance.
+Output: None
+
+Transfer Funds:
+TransferFunds {fromAccountId: int, toAccountId: int, amount: int}
+Input Parameters:
+fromAccountId (int): The ID of the account to transfer funds from.
+toAccountId (int): The ID of the account to transfer funds to.
+amount (int): The amount of funds to transfer.
+Output: None
+
+View Account Balance:
+ViewAccountBalance {id: int}
+Input Parameters:
+id (int): The ID of the account to view balance for.
+Output: Account balance
+
+View Transaction History:
+ViewTransactionHistory {id: int}
+Input Parameters:
+id (int): The ID of the account to view transaction history for.
+Output: List of transactions for the account
+
+Promotions:
+
+Add Promotion:
+AddPromotion {productId: int, discountPercentage: int}
+Input Parameters:
+productId (int): The ID of the product to apply the promotion to.
+discountPercentage (int): The discount percentage for the promotion.
+Output: None
+
+Update Promotion:
+UpdatePromotion {productId: int, newDiscountPercentage: int}
+Input Parameters:
+productId (int): The ID of the product to update the promotion for.
+newDiscountPercentage (int): The new discount percentage for the promotion.
+Output: None
+
+Remove Promotion:
+RemovePromotion {productId: int}
+Input Parameters:
+productId (int): The ID of the product to remove the promotion from.
+Output: None
