@@ -32,7 +32,6 @@ public abstract class CommandHandler {
         this.commandName = commandName;
     }
 
-    // public final
     public final ObjectNode handleCommand(CommandDto commandDto) throws JsonProcessingException {
         if (commandDto.command().size() > 0) {
             if (canHandle(commandDto)) {

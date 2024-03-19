@@ -11,8 +11,6 @@ import transactionmanager.Business.Products.ProductError;
 import transactionmanager.Business.Products.ProductsD;
 import transactionmanager.Business.Products.ProductsD.ProductRecord;
 
-// import transactionmanager.App.ProductsD.ProductRecord;
-
 public class TransactionManager {
     private PriceCalculateStrategy normalStrategy = new NormalPriceStrategy();
     private PriceCalculateStrategy promotionalStrategy = new PromotionalPriceStrategy();
@@ -27,7 +25,6 @@ public class TransactionManager {
         ProductsD productsD = ProductsD.getInstance();
 
         if (productsD.containsProduct(productName)) {
-            // ProductRecord product = productsD.getProduct(productName);
             ProductRecord product = productsD.getProduct(productName);
             assert (product != null);
             if (product.onDiscount()) {

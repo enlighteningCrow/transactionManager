@@ -12,73 +12,35 @@ import java.util.HashMap;
 
 public class PromotionsManager {
   private static PromotionsManager instance;
-  // private AccountStorage accountStorage;
   private PromotionDatabaseStorage promotionFileStorage;
 
   public static final String accountsFile = "./data/accounts.dtb";
 
   private PromotionsManager(PromotionDatabaseStorage promotionFileStorage) {
-    // this.accountStorage = accountStorage;
     this.promotionFileStorage = promotionFileStorage;
   }
 
   public static PromotionsManager getInstance() throws SQLException {
     if (instance == null) {
-      // AccountDatabaseStorage accountFileStorage = new
-      // AccountDatabaseStorage("accounts.txt");
       PromotionDatabaseStorage promotionFileStorage = new PromotionDatabaseStorage(accountsFile);
-      // AccountStorage accountStorage = new AccountStorage();
-      // try {
-      // accountStorage.setAccounts(accountFileStorage.load());
-      // } catch (SQLException e) {
-      // accountStorage = new AccountStorage();
-      // }
       instance = new PromotionsManager(promotionFileStorage);
     }
     return instance;
   }
 
   public void addPromotion(String product, double discount) throws IOException, SQLException {
-    // accountStorage.addAccount(new AccountCommandDecorator(account));
-    // try {
     promotionFileStorage.addPromotion(product, discount);
-    // } catch (SQLException e) {
-    // System.out.println("{\"error\": \"Failed to add account\"}");
-    // System.err.println(e);
-    // System.exit(-1);
-    // }
   }
 
   public void updatePromotion(String product, double discount) throws IOException, SQLException {
-    // accountStorage.addAccount(new AccountCommandDecorator(account));
-    // try {
     promotionFileStorage.updatePromotion(product, discount);
-    // } catch (SQLException e) {
-    // System.out.println("{\"error\": \"Failed to add account\"}");
-    // System.err.println(e);
-    // System.exit(-1);
-    // }
   }
 
   public void removePromotion(String product) throws IOException, SQLException {
-    // accountStorage.removeAccount(account);
-    // try {
-    // promotionFileStorage.remove(Arrays.asList(account.getAccountId()));
     promotionFileStorage.removePromotion(product);
-    // } catch (SQLException e) {
-    // System.out.println("{\"error\": \"Failed to remove account\"}");
-    // System.exit(-1);
-    // }
   }
 
   public Double getPromotion(String product) throws SQLException {
-    // for (AccountCommandDecorator acc : accountStorage.getAllAccounts()) {
-    // if (acc.getAccountId() == id) {
-    // return acc;
-    // }
-    // }
-    // return null;
-    // return promotionFileStorage.get(id);
     return promotionFileStorage.getPromotion(product);
   }
 

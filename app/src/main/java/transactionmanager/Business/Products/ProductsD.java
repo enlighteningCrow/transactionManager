@@ -67,32 +67,16 @@ public class ProductsD {
     }
 
     public List<ProductRecord> getAllProductRecords() throws SQLException {
-        // double price = products.get(productName);
-        // boolean onDiscount = promotionStorage.promotionExists(productName);
-        // double discount = 0;
-        // if (onDiscount) {
-        // discount = promotionStorage.getPromotion(productName);
-        // }
         ArrayList<ProductRecord> productRecords = new ArrayList<>();
         for (var product : getAllProducts().entrySet()) {
             productRecords.add(getRecordFromProduct(product.getKey(), product.getValue()));
         }
         return productRecords;
-        // return .stream().map(i -> {
-        // try {
-        // return getRecordFromProduct(i.getKey(), i.getValue());
-        // } catch (SQLException e) {
-        // System.exit(-1);
-        // }
-        // });
-        // return ;
     }
 
     private ProductRecord getRecordFromProduct(String productName, double price) throws SQLException {
-        // double price = products.get(productName);
         PromotionsManager promotionsManager = PromotionsManager.getInstance();
         boolean onDiscount = promotionsManager.hasPromotion(productName);
-        // boolean onDiscount = promotionStorage.promotionExists(productName);
         double discount = 0;
         if (onDiscount) {
             discount = promotionsManager.getPromotion(productName);

@@ -25,8 +25,6 @@ public class ProductsCommandHandler extends CommandHandler {
 
     @Override
     public ObjectNode cHandleCommand(CommandDto commandJson) throws JsonProcessingException {
-        // commandJson.command().remove(0);
-        // return handlers.get(0).handleCommand(commandJson);
         throw new RuntimeException("Reached unreachable products handler");
     }
 }

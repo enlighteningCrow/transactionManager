@@ -23,9 +23,7 @@ public class CreateCommand extends CommandHandler {
         int accountIdToAdd = commandDto.arguments().get("id").intValue();
         double balanceToAdd = commandDto.arguments().get("balance").doubleValue();
         accountManager.addAccount(new AccountCommandDecorator(new Account(accountIdToAdd, balanceToAdd)));
-        // TODO: maybe have to check for exception if already exists.
 
-        // return objectMapper.createObjectNode();
         return getSuccessNode();
     }
 

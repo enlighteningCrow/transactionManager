@@ -30,7 +30,6 @@ public class ListCommand extends CommandHandler {
             for (var product : productsD.getAllProductRecords()) {
                 array = array.addPOJO(product);
             }
-            // data.set("products", array);
             node.set("data", data);
         } catch (Exception e) {
             node = getErrorNode("invalid arguments");

@@ -38,11 +38,9 @@ public class PromotionDatabaseStorage {
 
     public HashMap<String, Double> getAllPromotions() throws SQLException {
         HashMap<String, Double> map = new HashMap<>();
-        // double promotion = 0.0;
         String query = "SELECT productName, promotion FROM promotions;";
         try (Connection connection = DriverManager.getConnection(url);
                 PreparedStatement statement = connection.prepareStatement(query)) {
-            // statement.setString(1, productName);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Double promotion = resultSet.getDouble("promotion");

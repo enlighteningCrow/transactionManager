@@ -24,31 +24,18 @@ public class ShowCommand extends CommandHandler {
     public ObjectNode cHandleCommand(CommandDto commandDto) throws ClassNotFoundException, SQLException, IOException {
         AccountManager accountManager = AccountManager.getInstance();
         int accountId = commandDto.arguments().get("id").intValue();
-        // double balanceToAdd = commandDto.arguments().get("balance").doubleValue();
-        // TODO: maybe have to check for exception if already exists.
         AccountCommandDecorator account = accountManager.getAccount(accountId);
         if (account == null) {
-            // return ("{\"error\": \"account with given id " + accountId + " does not
-            // exist\"}");
             return getErrorNode("account with given id " + accountId + " does not exist\"");
         } else {
-            // System.out.println("Balance: " + account.getBalance());
-            // new ObjectMapper()
-            // var mapper = new ObjectMapper()
-            // .enable(SerializationFeature.INDENT_OUTPUT);
 
-            // String json;
             ObjectNode node;
             try {
-                // account.getCommandHistory();
-                // json = mapper.writeValueAsString(account.getCommandHistory());
                 node = getSuccessNode();
                 ObjectNode data = objectMapper.createObjectNode();
                 data.putPOJO("history", account.getCommandHistory());
                 node.set("data", data);
-                // .set("history", account.getCommandHistory());
             } catch (Exception e) {
-                // json = "{\"error\": Invalid arguments}";
                 node = getErrorNode("invalid arguments");
             }
             return node;

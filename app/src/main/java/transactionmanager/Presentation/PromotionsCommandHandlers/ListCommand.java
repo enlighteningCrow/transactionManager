@@ -22,7 +22,6 @@ public class ListCommand extends CommandHandler {
     @Override
     public ObjectNode cHandleCommand(CommandDto commandDto) throws ClassNotFoundException, SQLException, IOException {
         PromotionsManager promotionsManager = PromotionsManager.getInstance();
-        // String product = commandDto.arguments().get("name").textValue();
         ObjectNode node = objectMapper.createObjectNode();
         try {
             node = getSuccessNode();
@@ -36,13 +35,6 @@ public class ListCommand extends CommandHandler {
         } catch (Exception e) {
             node = getErrorNode("invalid arguments");
         }
-        // if (!promotionsManager.hasPromotion(product)) {
-        // return getErrorNode("promotion on product with given name \"" + product + "\"
-        // does not exist\"");
-        // } else {
-        // PromotionsManager.getInstance().removePromotion(product);
-        // return getSuccessNode();
-        // }
         return node;
     }
 }

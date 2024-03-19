@@ -9,6 +9,3 @@ public interface Transaction extends Serializable {
 
     String getType();
 }
-// int getAccountId();
-
-// double getAmount();

@@ -1,58 +1,3 @@
-// package transactionmanager.Storage;
-
-// import java.sql.Connection;
-// import java.sql.DriverManager;
-// import java.sql.PreparedStatement;
-// import java.sql.ResultSet;
-// import java.sql.SQLException;
-// import java.util.ArrayList;
-// import java.util.List;
-
-// import transactionmanager.App.Account;
-// import transactionmanager.App.AccountCommandDecorator;
-// import transactionmanager.App.Transaction;
-
-// public class AccountDatabaseStorage {
-//     private final String url;
-
-//     public AccountDatabaseStorage(String filename) {
-//         this.url = "jdbc:h2:file:" + filename;
-//         String query = "CREATE TABLE IF NOT EXISTS accounts(id int PRIMARY KEY, );";
-//         try (Connection connection = DriverManager.getConnection(url);
-//                 PreparedStatement statement = connection.prepareStatement(query)) {
-//         }
-//     }
-
-//     public List<AccountCommandDecorator> load() throws SQLException {
-//         List<AccountCommandDecorator> accounts = new ArrayList<>();
-//         String query = "SELECT id, balance FROM accounts";
-
-//         try (Connection connection = DriverManager.getConnection(url);
-//                 PreparedStatement statement = connection.prepareStatement(query);
-//                 ResultSet resultSet = statement.executeQuery()) {
-//             while (resultSet.next()) {
-//                 int id = resultSet.getInt("id");
-//                 double balance = resultSet.getDouble("balance");
-//                 AccountCommandDecorator account = new AccountCommandDecorator(new Account(id, balance));
-//                 accounts.add(account);
-//             }
-//         }
-//         return accounts;
-//     }
-
-//     public void save(List<AccountCommandDecorator> accounts) throws SQLException {
-//         String query = "INSERT INTO accounts (id, balance) VALUES (?, ?)";
-
-//         try (Connection connection = DriverManager.getConnection(url);
-//                 PreparedStatement statement = connection.prepareStatement(query)) {
-//             for (AccountCommandDecorator account : accounts) {
-//                 statement.setInt(1, account.getAccountId());
-//                 statement.setDouble(2, account.getBalance());
-//                 statement.executeUpdate();
-//             }
-//         }
-//     }
-// }
 
 package transactionmanager.Persistence;
 
@@ -151,7 +96,6 @@ public class AccountDatabaseStorage {
         }
     }
 
-    // Serialize a list of Transaction objects to bytes
     private byte[] serialize(List<Transaction> transactions) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
@@ -160,7 +104,6 @@ public class AccountDatabaseStorage {
         return byteArrayOutputStream.toByteArray();
     }
 
-    // Deserialize bytes to a list of Transaction objects
     @SuppressWarnings("unchecked")
     private List<Transaction> deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);

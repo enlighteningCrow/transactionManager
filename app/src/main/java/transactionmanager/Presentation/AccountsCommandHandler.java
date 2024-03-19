@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 
 public class AccountsCommandHandler extends CommandHandler {
-    // private final AccountManager accountManager;
 
     public AccountsCommandHandler() {
         super("accounts");
@@ -25,12 +24,10 @@ public class AccountsCommandHandler extends CommandHandler {
             handlers.get(i - 1).setNextHandler(handlers.get(i));
         }
         setDelegateHandler(handlers.get(0));
-        // this.accountManager = AccountManager.getInstance();
     }
 
     @Override
     public ObjectNode cHandleCommand(CommandDto commandDto) throws JsonProcessingException {
         throw new RuntimeException("Reached unreachable accounts handler");
-        // return handlers.get(0).handleCommand(commandDto);
     }
 }

@@ -10,7 +10,6 @@ public class OutputMaker {
     public static ObjectNode build(ObjectNode node) {
         ObjectNode root = objectMapper.createObjectNode();
         root.set("response", node);
-        // ObjectNode events = objectMapper.createObjectNode();
         ArrayNode events = root.putArray("events");
         for (String event : EventLogger.consumeEvents()) {
             events.add(event);
