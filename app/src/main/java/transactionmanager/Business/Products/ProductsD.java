@@ -20,8 +20,9 @@ public class ProductsD {
     }
 
     public static ProductsD getInstance() throws SQLException {
-        if (instance == null)
+        if (instance == null) {
             instance = new ProductsD();
+        }
         return instance;
     }
 
@@ -30,6 +31,10 @@ public class ProductsD {
     private ProductsD() throws SQLException {
         this.products = new HashMap<>();
         this.promotionStorage = new PromotionDatabaseStorage("./data/promotions.dtb");
+        List<ProductMemento> mementos = ProductsHistory.getInstance().getProductMementoList();
+        if (mementos.size() != 0) {
+            restoreFromMemento(mementos.get(mementos.size() - 1));
+        }
     }
 
     public ProductRecord getProduct(String productName) throws SQLException {

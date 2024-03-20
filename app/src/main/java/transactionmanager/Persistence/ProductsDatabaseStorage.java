@@ -3,8 +3,6 @@ package transactionmanager.Persistence;
 import java.util.List;
 
 import transactionmanager.Business.Products.ProductMemento;
-import transactionmanager.Business.Products.ProductsHistory;
-
 import java.util.ArrayList;
 
 import java.sql.Connection;

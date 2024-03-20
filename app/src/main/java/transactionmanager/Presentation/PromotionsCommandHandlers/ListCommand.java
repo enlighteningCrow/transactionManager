@@ -26,7 +26,7 @@ public class ListCommand extends CommandHandler {
         try {
             node = getSuccessNode();
             ObjectNode data = objectMapper.createObjectNode();
-            ArrayNode array = data.putArray("products");
+            ArrayNode array = data.putArray("promotions");
             for (var promotion : promotionsManager.getPromotions().entrySet()) {
                 ObjectNode obj = array.addObject();
                 obj.put("name", promotion.getKey()).put("discount", promotion.getValue());
